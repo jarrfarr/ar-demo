@@ -23,10 +23,18 @@
         html, body {
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1f2e 25%, #0f1419 50%, #1a1f2e 75%, #0a0a0f 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             color: #ffffff;
             overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
@@ -36,23 +44,34 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding-top: 80px;
         }
 
         .header {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            padding: 24px;
-            background: linear-gradient(to bottom, rgba(15, 15, 15, 0.8), transparent);
-            z-index: 10;
+            padding: 20px;
+            background: linear-gradient(to bottom, rgba(15, 15, 15, 0.95), transparent);
+            z-index: 100;
             text-align: center;
+            pointer-events: none;
         }
 
         .header h1 {
             font-size: 28px;
             font-weight: 600;
             letter-spacing: -0.5px;
+        }
+
+        .header .subtitle {
+            font-size: 12px;
+            color: rgba(100, 150, 200, 0.7);
+            margin-top: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 500;
         }
 
         .viewer-wrapper {
@@ -70,46 +89,27 @@
             max-width: 1200px;
             max-height: 800px;
             border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 1px rgba(255, 255, 255, 0.1) inset;
-            background: linear-gradient(135deg, #1a1a1a 0%, #242424 100%);
+            border: 1px solid rgba(100, 150, 200, 0.25);
+            box-shadow: 0 0 40px rgba(100, 150, 200, 0.15), 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 1px rgba(150, 200, 255, 0.2) inset;
+            background: linear-gradient(135deg, #0f1419 0%, #1a1f28 100%);
             backdrop-filter: blur(10px);
         }
 
-        .controls {
+        .fps-counter {
             position: absolute;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            background: rgba(15, 15, 15, 0.8);
-            padding: 12px 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            bottom: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.9);
+            padding: 8px 12px;
+            border-radius: 8px 0 0 0;
+            border-left: 1px solid rgba(100, 150, 200, 0.25);
+            border-top: 1px solid rgba(100, 150, 200, 0.25);
+            font-size: 11px;
+            font-weight: 500;
+            font-family: 'Courier New', monospace;
+            color: rgba(100, 150, 200, 0.8);
             backdrop-filter: blur(10px);
             z-index: 20;
-        }
-
-        .control-btn {
-            background: linear-gradient(135deg, #333333 0%, #242424 100%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .control-btn:hover {
-            background: linear-gradient(135deg, #404040 0%, #2d2d2d 100%);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
-        }
-
-        .control-btn:active {
-            transform: scale(0.95);
         }
 
         .info-text {
@@ -144,6 +144,7 @@
     <div class="container">
         <div class="header">
             <h1>3D Model Viewer</h1>
+            <p class="subtitle">Explore • Rotate • Interact</p>
         </div>
         <div class="info-text">Use mouse to rotate • Scroll to zoom</div>
         <div class="viewer-wrapper">
@@ -151,18 +152,40 @@
                 src="model.glb"
                 alt="3D Model"
                 auto-rotate
+                auto-rotate-delay="0"
+                rotation-per-second="45deg"
                 camera-controls
                 touch-action="pan-y"
                 ar
                 environment-image="neutral"
                 exposure="1"
                 shadow-intensity="1">
+                <div class="fps-counter">FPS: <span id="fps">60</span></div>
             </model-viewer>
         </div>
-        <div class="controls">
-            <button class="control-btn" onclick="document.querySelector('model-viewer').setAttribute('auto-rotate', '')">Auto Rotate</button>
-            <button class="control-btn" onclick="document.querySelector('model-viewer').resetCamera()">Reset View</button>
-        </div>
     </div>
+
+    <script>
+        // FPS Counter
+        let lastTime = performance.now();
+        let frames = 0;
+        let fps = 60;
+
+        function updateFPS() {
+            const currentTime = performance.now();
+            const deltaTime = currentTime - lastTime;
+
+            if (deltaTime >= 1000) {
+                fps = Math.round((frames * 1000) / deltaTime);
+                document.getElementById('fps').textContent = fps;
+                frames = 0;
+                lastTime = currentTime;
+            }
+            frames++;
+            requestAnimationFrame(updateFPS);
+        }
+
+        updateFPS();
+    </script>
 </body>
 </html>
