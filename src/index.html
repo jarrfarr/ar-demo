@@ -102,10 +102,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             position: fixed;
             z-index: 1;
-            gap: 40px;
+            gap: 20px;
+            padding-top: 120px;
         }
 
         .header {
@@ -145,7 +146,6 @@
             flex: 1;
             width: 100%;
             max-width: 1200px;
-            max-height: calc(100vh - 240px);
             border-radius: 16px;
             border: 1px solid rgba(100, 150, 200, 0.25);
             box-shadow: 0 0 40px rgba(100, 150, 200, 0.15), 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 1px rgba(150, 200, 255, 0.2) inset;
@@ -153,6 +153,7 @@
             backdrop-filter: blur(20px);
             position: relative;
             z-index: 10;
+            min-height: calc(40vh - 80px);
         }
 
         .cursor-glow {
@@ -295,17 +296,32 @@
             </div>
             <div class="fps-counter">FPS: <span id="fps">60</span></div>
         </model-viewer>
+        <model-viewer
+            src="model-explo.glb"
+            alt="3D Model"
+            auto-rotate
+            auto-rotate-delay="0"
+            rotation-per-second="45deg"
+            camera-controls
+            touch-action="pan-y"
+            ar
+            environment-image="neutral"
+            exposure="1"
+            shadow-intensity="1">
+            <div class="control-buttons-group">
+                <button class="control-button" id="resetBtn2">Reset View</button>
+                <button class="control-button" id="autoRotateBtn2">Stop Rotate</button>
+            </div>
+            <div class="fps-counter">FPS: <span id="fps2">60</span></div>
+        </model-viewer>
     </div>
 
-    <script>
-        // Get elements
-        const modelViewer = document.querySelector('model-viewer');
-        const resetBtn = document.getElementById('resetBtn');
-        const autoRotateBtn = document.getElementById('autoRotateBtn');
-        let isAutoRotating = true;
 
-        // Initialize buttons when model viewer is loaded
-        const initControls = () => {
+    <script>
+        // Initialize controls for a specific model viewer and its buttons
+        function initModelViewerControls(modelViewer, resetBtn, autoRotateBtn, fpsElement) {
+            let isAutoRotating = true;
+
             // Reset view button
             resetBtn.addEventListener('click', () => {
                 if (modelViewer) {
@@ -333,31 +349,51 @@
                     autoRotateBtn.textContent = isAutoRotating ? 'Stop Rotate' : 'Start Rotate';
                 }
             });
-        };
 
-        // Initialize controls after a brief delay to ensure model-viewer is ready
-        setTimeout(initControls, 100);
+            // Individual FPS tracking for this model viewer
+            let lastTime = performance.now();
+            let frames = 0;
+            let fps = 60;
 
-        // FPS Counter
-        let lastTime = performance.now();
-        let frames = 0;
-        let fps = 60;
+            function updateFPS() {
+                const currentTime = performance.now();
+                const deltaTime = currentTime - lastTime;
 
-        function updateFPS() {
-            const currentTime = performance.now();
-            const deltaTime = currentTime - lastTime;
-
-            if (deltaTime >= 1000) {
-                fps = Math.round((frames * 1000) / deltaTime);
-                document.getElementById('fps').textContent = fps;
-                frames = 0;
-                lastTime = currentTime;
+                if (deltaTime >= 1000) {
+                    fps = Math.round((frames * 1000) / deltaTime);
+                    fpsElement.textContent = fps;
+                    frames = 0;
+                    lastTime = currentTime;
+                }
+                frames++;
+                requestAnimationFrame(updateFPS);
             }
-            frames++;
-            requestAnimationFrame(updateFPS);
+
+            updateFPS();
         }
 
-        updateFPS();
+        // Get all model viewers and initialize controls for each
+        const modelViewers = document.querySelectorAll('model-viewer');
+
+        // Initialize controls for first model viewer
+        const modelViewer1 = modelViewers[0];
+        const resetBtn1 = document.getElementById('resetBtn');
+        const autoRotateBtn1 = document.getElementById('autoRotateBtn');
+        const fps1 = document.getElementById('fps');
+
+        // Initialize controls for second model viewer
+        const modelViewer2 = modelViewers[1];
+        const resetBtn2 = document.getElementById('resetBtn2');
+        const autoRotateBtn2 = document.getElementById('autoRotateBtn2');
+        const fps2 = document.getElementById('fps2');
+
+        // Initialize controls after a brief delay to ensure model-viewers are ready
+        setTimeout(() => {
+            initModelViewerControls(modelViewer1, resetBtn1, autoRotateBtn1, fps1);
+            initModelViewerControls(modelViewer2, resetBtn2, autoRotateBtn2, fps2);
+        }, 100);
+
+
 
         // Cursor glow follower
         const cursorGlow = document.querySelector('.cursor-glow');
