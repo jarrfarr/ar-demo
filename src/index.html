@@ -323,12 +323,20 @@
             ar
             environment-image="neutral"
             exposure="1"
-            shadow-intensity="1">
+            shadow-intensity="1.5"
+            shadow-softness="0.5"
+            camera-orbit="45deg 55deg auto"
+            field-of-view="45deg">
             <div class="control-buttons-group">
                 <button class="control-button" id="resetBtn3">Reset View</button>
                 <button class="control-button" id="autoRotateBtn3">Stop Rotate</button>
             </div>
             <div class="fps-counter">FPS: <span id="fps3">60</span></div>
+            <style>
+                model-viewer {
+                    --color: #4a4a4a;
+                }
+            </style>
         </model-viewer>
     </div>
 
