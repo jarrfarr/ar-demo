@@ -30,7 +30,7 @@
             animation: liquidFlow 8s ease-in-out infinite;
             font-family: 'Zalando Sans Expanded', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             color: #ffffff;
-            overflow: hidden;
+            overflow-y: auto;
             padding: 0 20px;
         }
 
@@ -314,6 +314,24 @@
             </div>
             <div class="fps-counter">FPS: <span id="fps2">60</span></div>
         </model-viewer>
+        <model-viewer
+            src="scan.glb"
+            alt="3D Model"
+            auto-rotate
+            auto-rotate-delay="0"
+            rotation-per-second="45deg"
+            camera-controls
+            touch-action="pan-y"
+            ar
+            environment-image="neutral"
+            exposure="1"
+            shadow-intensity="1">
+            <div class="control-buttons-group">
+                <button class="control-button" id="resetBtn3">Reset View</button>
+                <button class="control-button" id="autoRotateBtn3">Stop Rotate</button>
+            </div>
+            <div class="fps-counter">FPS: <span id="fps3">60</span></div>
+        </model-viewer>
     </div>
 
 
@@ -387,10 +405,17 @@
         const autoRotateBtn2 = document.getElementById('autoRotateBtn2');
         const fps2 = document.getElementById('fps2');
 
+        // Initialize controls for third model viewer
+        const modelViewer3 = modelViewers[2];
+        const resetBtn3 = document.getElementById('resetBtn3');
+        const autoRotateBtn3 = document.getElementById('autoRotateBtn3');
+        const fps3 = document.getElementById('fps3');
+
         // Initialize controls after a brief delay to ensure model-viewers are ready
         setTimeout(() => {
             initModelViewerControls(modelViewer1, resetBtn1, autoRotateBtn1, fps1);
             initModelViewerControls(modelViewer2, resetBtn2, autoRotateBtn2, fps2);
+            initModelViewerControls(modelViewer3, resetBtn3, autoRotateBtn3, fps3);
         }, 100);
 
 
