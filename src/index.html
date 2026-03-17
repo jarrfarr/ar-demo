@@ -30,7 +30,7 @@
             animation: liquidFlow 8s ease-in-out infinite;
             font-family: 'Zalando Sans Expanded', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             color: #ffffff;
-            overflow: hidden;
+            overflow-y: auto;
             padding: 0 20px;
         }
 
@@ -96,14 +96,14 @@
 
         .container {
             width: calc(100% - 40px);
-            height: calc(100% - 40px);
+            height: auto;
             top: 20px;
             left: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            position: fixed;
+            position: relative;
             z-index: 1;
             gap: 20px;
             padding-top: 120px;
@@ -278,29 +278,10 @@
             <p class="subtitle">Explore • Rotate • Interact</p>
         </div>
         <div class="info-text">Use mouse to rotate • Scroll to zoom</div>
+
         <model-viewer
-            src="model.glb"
+            src="./sequence/0_full.glb"
             alt="3D Model"
-            auto-rotate
-            auto-rotate-delay="0"
-            rotation-per-second="45deg"
-            camera-controls
-            touch-action="pan-y"
-            ar
-            environment-image="neutral"
-            exposure="1"
-            shadow-intensity="1">
-            <div class="control-buttons-group">
-                <button class="control-button" id="resetBtn">Reset View</button>
-                <button class="control-button" id="autoRotateBtn">Stop Rotate</button>
-            </div>
-            <div class="fps-counter">FPS: <span id="fps">60</span></div>
-        </model-viewer>
-        <model-viewer
-            src="model-explo.glb"
-            alt="3D Model"
-            auto-rotate
-            auto-rotate-delay="0"
             rotation-per-second="45deg"
             camera-controls
             touch-action="pan-y"
@@ -314,6 +295,161 @@
             </div>
             <div class="fps-counter">FPS: <span id="fps2">60</span></div>
         </model-viewer>
+
+        <model-viewer
+            src="./sequence/1_foundation.glb"
+            alt="3D Model"
+            rotation-per-second="45deg"
+            camera-controls
+            touch-action="pan-y"
+            ar
+            environment-image="neutral"
+            exposure="1"
+            shadow-intensity="1">
+            <div class="control-buttons-group">
+                <button class="control-button" id="resetBtn2">Reset View</button>
+                <button class="control-button" id="autoRotateBtn2">Stop Rotate</button>
+            </div>
+            <div class="fps-counter">FPS: <span id="fps2">60</span></div>
+        </model-viewer>
+
+        <model-viewer
+            src="./sequence/2_stegohome.glb"
+            alt="3D Model"
+            rotation-per-second="45deg"
+            camera-controls
+            touch-action="pan-y"
+            ar
+            environment-image="neutral"
+            exposure="1"
+            shadow-intensity="1">
+            <div class="control-buttons-group">
+                <button class="control-button" id="resetBtn2">Reset View</button>
+                <button class="control-button" id="autoRotateBtn2">Stop Rotate</button>
+            </div>
+            <div class="fps-counter">FPS: <span id="fps2">60</span></div>
+        </model-viewer>
+
+        <model-viewer
+            src="./sequence/3_sillgasket.glb"
+            alt="3D Model"
+            rotation-per-second="45deg"
+            camera-controls
+            touch-action="pan-y"
+            ar
+            environment-image="neutral"
+            exposure="1"
+            shadow-intensity="1">
+            <div class="control-buttons-group">
+                <button class="control-button" id="resetBtn2">Reset View</button>
+                <button class="control-button" id="autoRotateBtn2">Stop Rotate</button>
+            </div>
+            <div class="fps-counter">FPS: <span id="fps2">60</span></div>
+        </model-viewer>
+
+        <model-viewer
+            src="./sequence/4_greenplate.glb"
+            alt="3D Model"
+            rotation-per-second="45deg"
+            camera-controls
+            touch-action="pan-y"
+            ar
+            environment-image="neutral"
+            exposure="1"
+            shadow-intensity="1">
+            <div class="control-buttons-group">
+                <button class="control-button" id="resetBtn2">Reset View</button>
+                <button class="control-button" id="autoRotateBtn2">Stop Rotate</button>
+            </div>
+            <div class="fps-counter">FPS: <span id="fps2">60</span></div>
+        </model-viewer>
+
+        <model-viewer
+            src="./sequence/5_wallframing.glb"
+            alt="3D Model"
+            rotation-per-second="45deg"
+            camera-controls
+            touch-action="pan-y"
+            ar
+            environment-image="neutral"
+            exposure="1"
+            shadow-intensity="1">
+            <div class="control-buttons-group">
+                <button class="control-button" id="resetBtn2">Reset View</button>
+                <button class="control-button" id="autoRotateBtn2">Stop Rotate</button>
+            </div>
+            <div class="fps-counter">FPS: <span id="fps2">60</span></div>
+        </model-viewer>
+
+        <model-viewer
+            src="./sequence/6_framingfull.glb"
+            alt="3D Model"
+            rotation-per-second="45deg"
+            camera-controls
+            touch-action="pan-y"
+            ar
+            environment-image="neutral"
+            exposure="1"
+            shadow-intensity="1">
+            <div class="control-buttons-group">
+                <button class="control-button" id="resetBtn2">Reset View</button>
+                <button class="control-button" id="autoRotateBtn2">Stop Rotate</button>
+            </div>
+            <div class="fps-counter">FPS: <span id="fps2">60</span></div>
+        </model-viewer>
+
+        <model-viewer
+            src="./sequence/7_insulation.glb"
+            alt="3D Model"
+            rotation-per-second="45deg"
+            camera-controls
+            touch-action="pan-y"
+            ar
+            environment-image="neutral"
+            exposure="1"
+            shadow-intensity="1">
+            <div class="control-buttons-group">
+                <button class="control-button" id="resetBtn2">Reset View</button>
+                <button class="control-button" id="autoRotateBtn2">Stop Rotate</button>
+            </div>
+            <div class="fps-counter">FPS: <span id="fps2">60</span></div>
+        </model-viewer>
+
+
+        <model-viewer
+            src="./sequence/8_envelope.glb"
+            alt="3D Model"
+            rotation-per-second="45deg"
+            camera-controls
+            touch-action="pan-y"
+            ar
+            environment-image="neutral"
+            exposure="1"
+            shadow-intensity="1">
+            <div class="control-buttons-group">
+                <button class="control-button" id="resetBtn2">Reset View</button>
+                <button class="control-button" id="autoRotateBtn2">Stop Rotate</button>
+            </div>
+            <div class="fps-counter">FPS: <span id="fps2">60</span></div>
+        </model-viewer>
+
+        <model-viewer
+            src="./sequence/9_outsulationstrapping.glb"
+            alt="3D Model"
+            rotation-per-second="45deg"
+            camera-controls
+            touch-action="pan-y"
+            ar
+            environment-image="neutral"
+            exposure="1"
+            shadow-intensity="1">
+            <div class="control-buttons-group">
+                <button class="control-button" id="resetBtn2">Reset View</button>
+                <button class="control-button" id="autoRotateBtn2">Stop Rotate</button>
+            </div>
+            <div class="fps-counter">FPS: <span id="fps2">60</span></div>
+        </model-viewer>
+
     </div>
 
 
