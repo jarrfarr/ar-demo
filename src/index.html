@@ -297,6 +297,23 @@
         </model-viewer>
 
         <model-viewer
+            src="./sequence/8_envelope.glb"
+            alt="3D Model"
+            rotation-per-second="45deg"
+            camera-controls
+            touch-action="pan-y"
+            ar
+            environment-image="neutral"
+            exposure="1"
+            shadow-intensity="1">
+            <div class="control-buttons-group">
+                <button class="control-button" id="resetBtn2">Reset View</button>
+                <button class="control-button" id="autoRotateBtn2">Stop Rotate</button>
+            </div>
+            <div class="fps-counter">FPS: <span id="fps2">60</span></div>
+        </model-viewer>       
+
+        <model-viewer
             src="model-explo.glb"
             alt="3D Model"
             rotation-per-second="45deg"
